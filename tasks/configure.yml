@@ -1,0 +1,17 @@
+---
+- name: Ensure backup directory exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    group: "{{ user }}"
+    owner: "{{ user }}"
+    mode: 0755
+    state: directory
+  loop: "{{ filebackup_jobs | map(attribute='local_path') }}"
+
+- name: Create cron file
+  become: true
+  template:
+    src: filebackup.j2
+    dest: "{{ filebackup_cron_path }}/{{ filebackup_cron_filename }}"
+    mode: 0644

@@ -1,0 +1,8 @@
+---
+- name: Add backup
+  ansible.builtin.include_tasks: install.yml
+  when: filebackup_uninstall == false
+
+- name: Remove backup
+  ansible.builtin.include_tasks: uninstall.yml
+  when: filebackup_uninstall == true

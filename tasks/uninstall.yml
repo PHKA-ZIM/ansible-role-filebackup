@@ -1,0 +1,5 @@
+---
+- name: Remove backup cron if exists
+  ansible.builtin.file:
+    "{{ filebackup_cron_path }}/{{ filebackup_cron_filename }}"
+    state: absent

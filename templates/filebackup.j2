@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+# use /bin/bash to run commands, no matter what /etc/passwd says
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# m h dom mon dow user command
+
+{% if filebackup_jobs | length > 0 %}
+{% for job in filebackup_jobs %}
+{{ job['cron_min'] }} {{ job['cron_hour'] }} * * * {{ user }} rsync -az --delete --rsync-path="sudo rsync" {{ job['remote_user'] }}@{{ job['remote_server'] }}:{{ job['remote_path'] }} {{ job['local_path'] }}
+{% endfor %}
+{% else %}
+# no backup jobs defined
+{% endif %}

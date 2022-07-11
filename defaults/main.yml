@@ -1,0 +1,4 @@
+---
+filebackup_jobs: []
+filebackup_cron_filename: filebackup
+filebackup_uninstall: false
