@@ -2,5 +2,5 @@
 - name: Import configure tasks
   ansible.builtin.import_tasks: configure.yml
   when:
-    - filebackup_jobs defined
+    - filebackup_jobs is defined
     - filebackup_jobs | length > 0
