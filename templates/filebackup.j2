@@ -8,7 +8,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 {% if filebackup_jobs | length > 0 %}
 {% for job in filebackup_jobs %}
-{{ job['cron_min'] }} {{ job['cron_hour'] }} * * * {{ user }} rsync -az --delete --rsync-path="sudo rsync" {{ job['remote_user'] }}@{{ job['remote_server'] }}:{{ job['remote_path'] }} {{ job['local_path'] }}
+{{ job['cron_min'] }} {{ job['cron_hour'] }} * * * {{ user }} rsync -az --delete --rsync-path="sudo rsync" {{ job['remote_user'] }}@{{ job['remote_server'] }}:{{ job['remote_path'] }} {{ job['local_path'] }} 2>&1
 {% endfor %}
 {% else %}
 # no backup jobs defined
