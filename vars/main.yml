@@ -1,2 +1,6 @@
 ---
 filebackup_cron_path: /etc/cron.d/
+
+filebackup_requirements:
+  - cron
+  - rsync

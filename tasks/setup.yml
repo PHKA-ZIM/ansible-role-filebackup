@@ -1,15 +1,15 @@
 ---
-- name: Ensure backup directory exists
+- name: Ensure backup directories exist
   become: true
   ansible.builtin.file:
     path: "{{ item }}"
-    group: "{{ user }}"
-    owner: "{{ user }}"
+    group: "{{ filebackup_user }}"
+    owner: "{{ filebackup_user }}"
     mode: 0755
     state: directory
   loop: "{{ filebackup_jobs | map(attribute='local_path') }}"
 
-- name: Create cron file
+- name: Ensure backup cron file exists
   become: true
   template:
     src: filebackup.j2

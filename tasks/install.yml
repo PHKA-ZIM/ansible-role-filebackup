@@ -1,6 +1,8 @@
 ---
-- name: Import configure tasks
-  ansible.builtin.import_tasks: configure.yml
-  when:
-    - filebackup_jobs is defined
-    - filebackup_jobs | length > 0
+- name: Ensure that packages are installed
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    update_cache: true
+    state: present
+  loop: "{{ filebackup_requirements }}"

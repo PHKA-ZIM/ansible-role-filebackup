@@ -1,8 +1,15 @@
 ---
 - name: Add backup
-  ansible.builtin.include_tasks: install.yml
-  when: filebackup_uninstall == false
+  when:
+    - filebackup_uninstall == false
+    - filebackup_jobs is defined
+    - filebackup_jobs | length > 0
+  block:
+    - name: Setup
+      ansible.builtin.include_tasks: setup.yml
 
 - name: Remove backup
-  ansible.builtin.include_tasks: uninstall.yml
   when: filebackup_uninstall == true
+  block:
+    - name: Clean
+      ansible.builtin.include_tasks: clean.yml

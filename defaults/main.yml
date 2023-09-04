@@ -1,4 +1,14 @@
 ---
 filebackup_jobs: []
+# filebackup_jobs: [
+#   remote_server: 127.0.0.1
+#   remote_user: root
+#   remote_path: /opt/backup/
+#   local_path: /opt/backup/
+#   cron_schedule: "* * * * *"
+# ]
+
 filebackup_cron_filename: filebackup
+filebackup_user: root
+
 filebackup_uninstall: false

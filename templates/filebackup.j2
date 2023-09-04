@@ -7,9 +7,13 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # m h dom mon dow user command
 
 {% if filebackup_jobs | length > 0 %}
-{% for job in filebackup_jobs %}
-{{ job['cron_min'] }} {{ job['cron_hour'] }} * * * {{ user }} rsync -aqz -e "ssh -o StrictHostKeyChecking=no" --delete --rsync-path="sudo rsync" {{ job['remote_user'] }}@{{ job['remote_server'] }}:{{ job['remote_path'] }} {{ job['local_path'] }} 2>&1
-{% endfor %}
+    {% for job in filebackup_jobs %}
+        {% if job['cron_schedule'] and job['remote_user'] and job['remote_server'] and job['remote_path'] and job['local_path'] %}
+{{ job['cron_schedule'] }} {{ filebackup_user }} rsync -aqz -e "ssh -o StrictHostKeyChecking=no" --delete --rsync-path="sudo rsync" {{ job['remote_user'] }}@{{ job['remote_server'] }}:{{ job['remote_path'] }} {{ job['local_path'] }} 2>&1
+        {% else %}
+# backup job configuration is incorrect
+        {% endif %}
+    {% endfor %}
 {% else %}
 # no backup jobs defined
 {% endif %}
