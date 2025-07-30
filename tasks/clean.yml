@@ -2,5 +2,5 @@
 - name: Ensure backup cron file is absent
   become: true
   ansible.builtin.file:
-    "{{ filebackup_cron_path }}/{{ filebackup_cron_filename }}"
+    path: "{{ filebackup_cron_path }}/{{ filebackup_cron_filename }}"
     state: absent

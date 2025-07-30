@@ -11,7 +11,7 @@
 
 - name: Ensure backup cron file exists
   become: true
-  template:
+  ansible.builtin.template:
     src: filebackup.j2
     dest: "{{ filebackup_cron_path }}/{{ filebackup_cron_filename }}"
     mode: 0644

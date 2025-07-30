@@ -5,6 +5,9 @@
     - filebackup_jobs is defined
     - filebackup_jobs | length > 0
   block:
+    - name: Install
+      ansible.builtin.include_tasks: install.yml  
+
     - name: Setup
       ansible.builtin.include_tasks: setup.yml
 
